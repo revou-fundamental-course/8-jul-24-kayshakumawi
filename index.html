@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BMI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    .calculator {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+
+    .result {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+
+    h1, h2, h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    input[type="number"],
+    input[type="radio"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .result-text {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .download-btn {
+      background-color: #008CBA;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .download-btn:hover {
+      background-color: #0077cc;
+    }
+
+    .features {
+      margin-top: 20px;
+    }
+
+    .features h3 {
+      margin-top: 0;
+    }
+
+    .features ul {
+      list-style: disc;
+      margin-left: 20px;
+    }
+
+    .app-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .app-buttons a {
+      margin: 0 10px;
+    }
+
+    .app-buttons img {
+      width: 150px;
+    }
+
+    .additional-info {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="calculator">
+      <h1>calculate B M I</h1>
+      <p>Berat badan bukanlah ukuran kebahagiaan, tetapi kesehatan adalah kunci kebahagiaan</p>
+      <p>YUK CEK BERAT BADAN MU SEKARANG!!!</p>
+
+      <!--data-->
+      <label for="gender">Jenis Kelamin:
+        <input type="radio" id="male" name="gender" value="male">
+      <label for="male">Pria</label>
+
+      <input type="radio" id="female" name="gender" value="female">
+      <label for="female">Wanita</label>
+      </label>
+
+      <label for="weight">Berat Badan (kg):</label>
+      <input type="number" id="weight" name="weight" value="">
+
+      <label for="age">Usia (tahun):</label>
+      <input type="number" id="age" name="age" value="">
+
+      <label for="height">Tinggi badan (cm):</label>
+      <input type="number" id="height" name="height" value="">
+
+      <button onclick="calculateBMI()">Hitung BMI</button>
+      <button onclick="resetForm()">Reset</button>
+    </div>
+
+    <div class="result">
+      <h2>RESULT</h2>
+      <div id="result-container">
+        <!-- Result  -->
+
+      </div>
+      <button class="download-btn" onclick="downloadResult()">Download Hasil BMI</button>
+      <p>Cara terbaik untuk menurunkan berat badan adalah dengan mengatur kalor makanan yang
+        dikonsumsi dan berolahraga.</p>
+      <p>Jika BMI Anda berada dalam kategori overweight maka Anda dianjurkan untuk menurunkan berat badan
+        hingga batas normal/ideal.</p>
+        <p>Tak lupa untuk konsultasi ke dokter untuk mendapatkan perawatan yang lebih baik.</p>
+      <button class="download-btn" onclick="consultExpert()">Konsultasi Ahli Gizi Via Aplikasi</button>
+
+      <p>Akhirnyaaaa, hasil yang ditunggu-tuggu telah keluar!</p> 
+      <p>berat badan yang sehat adalah cerminan gaya hidup seimbang. Teruslah menjaga keseimbangan dalam hidup Anda.</p>
+      <p>Jangan lupa untuk memperbanyak mengonsumsi makanan yang bergizi, berprotein dan rajin berolahraga</p>
+      <p>SEMANGAAATT BESTIE!!</p>
+    </div>
+  </div>
+
+
+  <script>
+    function calculateBMI() {
+      var weight = document.getElementById("weight").value;
+      var height = document.getElementById("height").value;
+      var gender = document.querySelector('input[name="gender"]:checked').value;
+
+      if (weight === "" || height === "") {
+        alert("Please enter your weight and height.");
+        return;
+      }
+
+      // Convert height ke meter
+      height = height / 100;
+
+      // kalkulator BMI
+      var bmi = weight / (height * height);
+
+      // result
+      var resultContainer = document.getElementById("result-container");
+      resultContainer.innerHTML = `
+        <p class="result-text">BMI Anda: ${bmi.toFixed(1)}</p>
+        <p>Anda memiliki berat badan ${bmi >= 25 ? 'berlebih' : bmi < 18.5 ? 'kekurangan' : 'ideal'}</p>
+      `;
+    }
+
+    function resetForm() {
+      document.getElementById("weight").value = "";
+      document.getElementById("height").value = "";
+      document.getElementById("age").value = "";
+      document.querySelector('input[name="gender"]:checked').checked = true;
+      document.getElementById("result-container").innerHTML = "";
+    }
+
+    function downloadResult() {
+      // Implement logic to download BMI result
+      alert("Download button clicked");
+    }
+
+    function consultExpert() {
+      // Implement logic to navigate to expert consultation page
+      alert("Consult Expert button clicked");
+    }
+
+  </script>
+</body>
+</html>
